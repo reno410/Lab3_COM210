@@ -1,0 +1,47 @@
+
+Reno, Angelo 
+
+
+import java.util.*;
+
+public class DelimiterChecker {
+    
+    public static boolean checkDelimiters(String text) {
+        Stack<Character> stack = new Stack<>();
+        Map<Character, Character> delimiters = new HashMap<>();
+        delimiters.put('(', ')');
+        
+        for (char c : text.toCharArray()) {
+            if (delimiters.containsKey(c)) {
+                stack.push(c);
+            } else if (delimiters.containsValue(c)) {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                if (delimiters.get(stack.peek()) == c) {
+                    stack.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter text to check delimiters: ");
+        String text = scanner.nextLine();
+        if (checkDelimiters(text)) {
+            System.out.println("The delimiters are matched correctly!");
+        } else {
+            System.out.println("The delimiters are not matched correctly!");
+        }
+    }
+}
+
+
+
+
+
